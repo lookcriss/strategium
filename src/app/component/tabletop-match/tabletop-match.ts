@@ -99,6 +99,16 @@ export class TabletopMatchComponent {
   }
   currentTime() {
     const now = new Date();
-    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    let duration = "0m";
+    if (this.match?.createdAt) {
+      const createdAt = new Date(this.match.createdAt);
+      const diffMs = now.getTime() - createdAt.getTime();
+      const diffMins = Math.floor(diffMs / 60000);
+      const hours = Math.floor(diffMins / 60);
+      const minutes = diffMins % 60;
+      (now as any).duration = `${hours}h ${minutes}m`;
+      duration = `${hours}h ${minutes}m`;
+    }
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " (" + duration + ")";
   }
 }
