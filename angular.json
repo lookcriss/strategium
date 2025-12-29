@@ -31,10 +31,19 @@
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "outputPath": {
+              "base": "dist/project-x",
+              "browser": ""
+            }
           },
           "configurations": {
             "production": {
+              "outputPath": {
+                "base": "/projects/project-x-backend/wwwroot",
+                "browser": ""
+              },
+              "optimization": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -52,7 +61,11 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "outputPath": {
+                "base": "dist/project-x",
+                "browser": ""
+              }
             }
           },
           "defaultConfiguration": "production"

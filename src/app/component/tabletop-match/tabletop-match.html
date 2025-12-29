@@ -1,48 +1,154 @@
-<p style="text-align: center; font-size: 2rem;">{{ match?.name }}</p>
-<p style="text-align: center; font-size: 1rem;" aria-label="Match created at">
-    {{ match?.createdAt ? (match.createdAt | date:'yyyy-MM-dd HH:mm':'UTC') : '' }}
-</p>
-<div style="margin-top: 1rem;">
-    <h3>Players</h3>
+<p style="text-align: center; font-size: 2rem; margin-bottom: 0.25rem;">{{ match?.name }}</p>
+<p style="text-align: center; font-size: 1rem; margin-top: 0;">{{ match?.createdAt ? (match.createdAt | date:'yyyy-MM-dd
+    HH:mm':'UTC') : '' }}</p>
+<div style="position: absolute; top: 1rem; right: 1rem; width: 8rem; height: 8rem; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; background: #222; color: #fff; border-radius: 15px; box-shadow: 0 2px 12px rgba(0,0,0,0.12);"
+    aria-label="Current round" (click)="changeRound()" tabindex="0" role="button" aria-pressed="false">
+    <span style="font-size: 1.125rem; color: #b0b0b0; margin-top: 0.625rem; letter-spacing: 0.05em;">round</span>
+    <span style="font-size: 3.75rem; font-weight: bold; line-height: 1; margin-top: 0.625rem;" aria-live="polite">{{
+        match?.round }}</span>
+</div>
+<div style="margin-top: 0.7rem;">
     <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1rem; width: 100%;">
         @for (player of match?.players; track playerIndex; let playerIndex = $index) {
-            <div
-                style="
+        <div style="
                     flex: 1 1 0;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    padding: 16px 0;
-                    gap: 4px;
-                    box-sizing: border-box;
-                "
-                aria-label="Player {{ player.name }}"
-            >
-                <span
-                    style="
-                        font-size: 1.5rem;
+                    padding: 1rem 0;
+                    gap: 0.2rem;
+                    box-sizing: border-box;" aria-label="Player {{ player.name }}">
+            <span style="
+                        font-size: 2.5rem;
                         font-weight: bold;
                         text-align: center;
                         width: 100%;
-                        line-height: 1.1;
+                        line-height: 1.2em;
                         word-break: normal;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
-                    "
-                    title="{{ player.name }}"
-                    aria-label="Player name: {{ player.name }}"
-                >{{ player.name }}</span>
-                <span style="color: #b0b0b0; font-size: 1rem; align-items: center; text-align: center; width: 100%;">{{ player.faction }}</span>
-                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 4px;">
-                    <span style="font-size: 2rem;">
-                        CP: <span style="font-weight: bold;">{{ player.currentCommandPoints }}</span>
-                    </span>
-                    <span style="font-size: 2rem;">
-                        VP: <span style="font-weight: bold;">{{ player.currentVictoryPoints }}</span>
-                    </span>
+                    " title="{{ player.name }}" aria-label="Player name: {{ player.name }}">{{ player.name }}</span>
+            <span style="color: #b0b0b0; font-size: 1rem; align-items: center; text-align: center; width: 100%;">{{
+                player.faction }}</span>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 4px;">
+                <div style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        background: #333;
+                        border-radius: 10px;
+                        box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+                        width: 20vw;
+                        max-width: 100%;
+                        height: 20vh;
+                        gap: 0.5rem;
+                    " aria-label="Command Points">
+                    <button type="button" style="
+                            width: 25%;
+                            height: 100%;
+                            background: transparent;
+                            border: none;
+                            color: #ff4d4f;
+                            font-size: 11vh;
+                            cursor: pointer;
+                            border-radius: 10px 0 0 10px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        " aria-label="Decrease command points"
+                        (click)="changePlayerValue('commandPoints', playerIndex, -1)" tabindex="0">-</button>
+                    <div style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            width: 9vw;
+                            height: 100%;
+                            background: #444;
+                            border-radius: 0;
+                        ">
+                        <span style="font-size: 0.875rem; color: #b0b0b0; letter-spacing: 0.04em;">CP</span>
+                        <span style="font-size: 11vh; 
+                            color:rgb(6, 115, 232); font-weight: bold; line-height: 1;" aria-live="polite">{{
+                            player.currentCommandPoints}}</span>
+                    </div>
+                    <button type="button" style="
+                            width: 25%;
+                            height: 100%;
+                            background: transparent;
+                            border: none;
+                            color: rgb(23, 161, 53)d4f;
+                            font-size: 11vh;
+                            cursor: pointer;
+                            border-radius: 0 10px 10px 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        " aria-label="Increase command points"
+                        (click)="changePlayerValue('commandPoints', playerIndex, 1)" tabindex="0">+</button>
+                </div>
+                <div style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        background: #333;
+                        border-radius: 10px;
+                        box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+                        width: 20vw;
+                        max-width: 100%;
+                        height: 20vh;
+                        gap: 0.5rem;
+                    " aria-label="Command Points">
+                    <button type="button" style="
+                            width: 25%;
+                            height: 100%;
+                            background: transparent;
+                            border: none;
+                            color: #ff4d4f;
+                            font-size: 11vh;
+                            cursor: pointer;
+                            border-radius: 10px 0 0 10px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        " aria-label="Decrease command points"
+                        (click)="changePlayerValue('victoryPoints', playerIndex, -1)" tabindex="0">-</button>
+                    <div style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            width: 9vw;
+                            height: 100%;
+                            background: #444;
+                            color:rgb(6, 115, 232);
+                            border-radius: 0;
+                        ">
+                        <span style="font-size: 0.875rem; color: #b0b0b0; letter-spacing: 0.04em;">VP</span>
+                        <span style="font-size: 11vh; 
+                            color:rgb(255, 0, 251); font-weight: bold; line-height: 1;" aria-live="polite">{{
+                            player.currentVictoryPoints }}</span>
+                    </div>
+                    <button type="button" style="
+                            width: 25%;
+                            height: 100%;
+                            background: transparent;
+                            border: none;
+                            color: rgb(23, 161, 53)d4f;
+                            font-size: 11vh;
+                            cursor: pointer;
+                            border-radius: 0 10px 10px 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        " aria-label="Increase command points"
+                        (click)="changePlayerValue('victoryPoints', playerIndex, 1)" tabindex="0">+</button>
                 </div>
             </div>
+        </div>
         }
     </div>
 </div>
@@ -62,3 +168,10 @@
     <p style="color: lightgray; display: inline;">{{ match?.updatedAt ? (match.updatedAt | date:'yyyy-MM-dd
         HH:mm':'UTC') : '' }}</p>
 </div>
+<a>
+    <button type="button"
+        style="position: fixed; bottom: 1rem; right: 1rem; padding: 0.75rem 1.5rem; font-size: 1rem; background-color: #00aaff; color: white; border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer;"
+        aria-label="End Match" (click)="resetMatch()" tabindex="0">
+        Reset Match
+    </button>
+</a>

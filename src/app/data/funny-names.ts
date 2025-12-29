@@ -32,7 +32,9 @@ const FUNNY_NAMES = [
   'The Meeple Menace',
   'Farty Dave',
   'The Lust Baron',
-  'Fluffy Czar',
+  'Icy Nero',
+  'Cezar the Small',
+  'Flexy McFlexface',
   'The Wobbly Gladiator',
   'Squishy Tactician',
 
