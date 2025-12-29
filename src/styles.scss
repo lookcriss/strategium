@@ -6,7 +6,7 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 html {
-  height: 100%;
+  height: 97%;
   width: 100%;
     color-scheme: light dark;
   @include mat.theme((
@@ -32,7 +32,7 @@ body {
 
   // Reset the user agent margin.
   margin: 0;
-  height: 99%;
+  height: 97%;
 }
 *, *::before, *::after {
   font-family: 'Cyberspace', 'Orbitron', 'monospace' !important;
