@@ -1,0 +1,64 @@
+<p style="text-align: center; font-size: 2rem;">{{ match?.name }}</p>
+<p style="text-align: center; font-size: 1rem;" aria-label="Match created at">
+    {{ match?.createdAt ? (match.createdAt | date:'yyyy-MM-dd HH:mm':'UTC') : '' }}
+</p>
+<div style="margin-top: 1rem;">
+    <h3>Players</h3>
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1rem; width: 100%;">
+        @for (player of match?.players; track playerIndex; let playerIndex = $index) {
+            <div
+                style="
+                    flex: 1 1 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 16px 0;
+                    gap: 4px;
+                    box-sizing: border-box;
+                "
+                aria-label="Player {{ player.name }}"
+            >
+                <span
+                    style="
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        text-align: center;
+                        width: 100%;
+                        line-height: 1.1;
+                        word-break: normal;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    "
+                    title="{{ player.name }}"
+                    aria-label="Player name: {{ player.name }}"
+                >{{ player.name }}</span>
+                <span style="color: #b0b0b0; font-size: 1rem; align-items: center; text-align: center; width: 100%;">{{ player.faction }}</span>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 4px;">
+                    <span style="font-size: 2rem;">
+                        CP: <span style="font-weight: bold;">{{ player.currentCommandPoints }}</span>
+                    </span>
+                    <span style="font-size: 2rem;">
+                        VP: <span style="font-weight: bold;">{{ player.currentVictoryPoints }}</span>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div style="margin-top: auto; width: 100%; position: fixed; font-size: small; bottom: 0; left: 0; box-shadow: 0 -2px 8px rgba(0,0,0,0.05);"
+    role="region" aria-label="Match details">
+    <p style="display: inline; margin-right: 1rem;">Details: </p>
+    <p style="display: inline; padding-left: 5px;">status = </p>
+    <p style="color: lightgray; display: inline;">{{ match?.status }}</p>
+    <p style="display: inline; padding-left: 5px;">number of players = </p>
+    <p style="color: lightgray; display: inline;">{{ match?.players?.length }}</p>
+    <p style="display: inline; padding-left: 5px;">round = </p>
+    <p style="color: lightgray; display: inline;">{{ match?.round }}</p>
+    <p style="display: inline; padding-left: 5px;"> created = </p>
+    <p style="color: lightgray; display: inline;">{{ match?.createdAt ? (match.createdAt | date:'yyyy-MM-dd
+        HH:mm':'UTC') : '' }}</p>
+    <p style="display: inline; padding-left: 5px;"> last modified = </p>
+    <p style="color: lightgray; display: inline;">{{ match?.updatedAt ? (match.updatedAt | date:'yyyy-MM-dd
+        HH:mm':'UTC') : '' }}</p>
+</div>

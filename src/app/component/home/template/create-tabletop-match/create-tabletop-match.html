@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>TableTop Match Creator</h2>
+<mat-dialog-content class="create-tabletop-match-dialog">
+    <form [formGroup]="matchForm" (ngSubmit)="onSubmit()"  class="create-tabletop-match-dialog">
+        <p><i>Create new Match!</i></p>
+
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Match Name</mat-label>
+            <input matInput formControlName="name" />
+        </mat-form-field>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 8px;">
+            <h2 style="margin: 0;">Players</h2>
+            <button type="button" (click)="addPlayer()" aria-label="Add player" style="padding: 5px; display: flex; align-items: center; gap: 8px;width: 100px; margin-right: 0.5vw;">
+                <span>ADD player</span>
+            </button>
+        </div>
+        <div formArrayName="players" style="max-height: 320px; overflow-y: auto; width: 100%;">
+            @for (player of matchForm.controls.players.controls; track playerIndex; let playerIndex = $index) {
+                <div [formGroupName]="playerIndex" style="display: flex; width: 100%; align-items: flex-start; gap: 16px; margin-bottom: 12px;">
+                    <mat-form-field appearance="fill" floatLabel="always" style="flex: 4 1 0;">
+                        <mat-label>Player Name</mat-label>
+                        <input matInput formControlName="name" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" style="flex: 4 1 0;">
+                        <mat-label>Faction / Character</mat-label>
+                        <input matInput formControlName="faction" [matAutocomplete]="factionAuto" autocomplete="off" />
+                        <mat-autocomplete #factionAuto="matAutocomplete">
+                            @for (faction of FUNNY_FACTIONS; track faction) {
+                                <mat-option [value]="faction">{{ faction }}</mat-option>
+                            }
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" floatLabel="always" style="flex: 1 1 0;">
+                        <mat-label>CP</mat-label>
+                        <input matInput type="number"
+                            (input)="updateCommandPoints(playerIndex, $any($event.target).value)" />
+                    </mat-form-field>
+                    <div style="display: flex; align-items: center; justify-content: center; flex: 0 0 auto; min-width: 120px; margin-left: 8px;">
+                        <button type="button"
+                            (click)="removePlayer(playerIndex)"
+                            style="padding: 5px; height: 100%; display: flex; align-items: center; gap: 8px; width: 100px;"
+                            aria-label="Remove player">
+                            <span>REMOVE player</span>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+        <mat-dialog-actions style="position: absolute; bottom: 0; left: 0; width: 100%; display: flex; justify-content: flex-end; padding: 16px 24px; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); z-index: 2;">
+            <button mat-button (click)="onNoClick()" type="button" aria-label="Cancel">Cancel</button>
+            <button mat-raised-button color="primary" type="submit" style="margin-left: 12px;">Create Match</button>
+        </mat-dialog-actions>
+    </form>        
+</mat-dialog-content>
