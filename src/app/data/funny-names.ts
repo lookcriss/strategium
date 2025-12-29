@@ -1,4 +1,3 @@
-
 const FUNNY_NAMES = [
   // Generisch lustig
   'Sir Fart-a-Lot',
@@ -19,7 +18,7 @@ const FUNNY_NAMES = [
   'The Noodle Knight',
   'Dicey McRollerson',
   'Fart Goblin Deluxe',
- 'Harmless Claude',
+  'Harmless Claude',
   'The Fluffy Shark',
   'Pawn Star',
   'Meeple Magician',
@@ -59,7 +58,7 @@ const FUNNY_NAMES = [
   'Bolter Betty',
   'Warpstorm Wanda',
   'Grot Whisperer',
-  'Tau Techno Tim'
+  'Tau Techno Tim',
 ];
 export { FUNNY_NAMES };
 const FUNNY_FACTIONS = [
@@ -75,7 +74,7 @@ const FUNNY_FACTIONS = [
   'Deathwatch',
   'Drukhari',
   'Eldar',
-  'Emperor\'s Children',
+  "Emperor's Children",
   'Genestealer Cults',
   'Goblin Reclaimers',
   'Grey Knights',
@@ -94,7 +93,7 @@ const FUNNY_FACTIONS = [
   'Thousand Sons',
   'Tyranids',
   'Ultramarines',
-  'White Scars'
+  'White Scars',
 ];
 export { FUNNY_FACTIONS };
 
@@ -104,14 +103,15 @@ const FUNNY_MATCH_NAMES = [
   'Quest for the Holy Meeple',
   'The Funky Clash',
   'Nasty Hole Delirium',
-  'The Squishy Takeover', 
+  'The Squishy Takeover',
   'Dance to Victory',
   'The Meeple Melee',
-  'Lust Game Bonanza', 
+  'Lust Game Bonanza',
   'The Neon Showdown',
   'The Farty Duel',
-  'Funky Carnage',  
+  'Funky Carnage',
   'The Great Globby Gauntlet',
   'The Meeple Marathon',
-  'The Squishy Tournament'];
+  'The Squishy Tournament',
+];
 export { FUNNY_MATCH_NAMES };
