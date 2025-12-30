@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../local-storage-service';
 import { TableTopPlayer } from '../../data/tabletop-player';
+import { interval, Subscription } from 'rxjs';
 
 type FormPlayer = FormGroup<{
   name: FormControl<string>;
@@ -22,13 +23,17 @@ type MatchForm = FormGroup<{
   templateUrl: './tabletop-match.html',
   styleUrl: './tabletop-match.scss',
 })
-export class TabletopMatchComponent {
+export class TabletopMatchComponent implements OnDestroy , OnInit{
 
   private localStorageService = inject(LocalStorageService);
+  private cd = inject(ChangeDetectorRef);
   match = inject(Router).getCurrentNavigation()?.extras.state?.['match'];
   numberOfPlayers = 2;
+  duration = '?';
+  private timerSub!: Subscription;
 
   constructor() {
+    
     console.log('TabletopMatchComponent initialized with match:', this.match);
     console.log('Current Navigation Extras State:', inject(Router).getCurrentNavigation()?.extras.state);
     if (!this.match) {
@@ -46,6 +51,16 @@ export class TabletopMatchComponent {
     console.log('Stored match in localStorage:', this.match);
 
   } 
+
+  ngOnInit(): void {
+    this.calculateDuration();
+      this.timerSub = interval(15000).subscribe(() => {
+            this.calculateDuration();
+          });
+  }
+  ngOnDestroy(): void {
+    this.timerSub.unsubscribe();
+  }
 
   changePlayerValue(key: string, playerIndex: number, delta: number) {
     console.log(`Changing value for player ${playerIndex}, key: ${key}, delta: ${delta}`);
@@ -92,12 +107,12 @@ export class TabletopMatchComponent {
         player.currentVictoryPoints = 0;
         console.log(`Reset player ${index} commandPoints to ${player.currentCommandPoints} and victoryPoints to ${player.victoryPoints}`);
       });
-      this.match.round = 1;
+      this.match.round = 0;
       this.localStorageService.setItem('match', this.match);
       console.log(`Reset match round to ${this.match.round}`);
     }
   }
-  currentTime() {
+  calculateDuration() {
     const now = new Date();
     let duration = "0m";
     if (this.match?.createdAt) {
@@ -109,6 +124,14 @@ export class TabletopMatchComponent {
       (now as any).duration = `${hours}h ${minutes}m`;
       duration = `${hours}h ${minutes}m`;
     }
-    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " (" + duration + ")";
+    this.duration = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " | " + duration + "";
+    console.log(`Calculated duration: ${this.duration}`);
+    // Manually trigger change detection (app appears to run without zone.js)
+    try {
+      this.cd.detectChanges();
+    } catch (e) {
+      // ignore if detectChanges is not available for some reason
+      console.warn('Could not call detectChanges():', e);
+    }
   }
 }
