@@ -19,22 +19,28 @@ html {
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // Application is fixed to dark mode. Do not defer to system settings.
   color-scheme: dark;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
   background-color: #0b0b0b;
   color: #e6e6e6;
   font: "Cyberspace", "Orbitron", "monospace";
-  padding-left: 8px;
 
-  // Reset the user agent margin.
+  /* Reset the user agent margin and prevent horizontal overflow */
   margin: 0;
-  height: 97%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  /* Use dynamic viewport units on mobile and fallback to 100vh */
+  //min-height: 100dvh;/*  */
+  //min-height: 100vh;/*  */
 }
+.main-body {
+  box-sizing: border-box;
+  width: 100%;
+  //min-height: 100dvh;
+  //min-height: 100vh; /* fallback */
+}
+
 *,
 *::before,
 *::after {

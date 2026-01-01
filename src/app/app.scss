@@ -1,0 +1,51 @@
+.main-nav-container {
+    font-family: 'Cyberspace', 'Orbitron', 'monospace';
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    color: #00ffe7;
+    text-shadow: 0 0 4px #00ffe7, 0 0 8px #222;
+    display: flex;
+    position: relative;
+    gap: 5rem;
+    margin: 5px 0;
+}
+.main-nav-container.is-phone {
+    font-size: 0.8rem;
+    gap: 0.2rem;
+    padding-right: 10vh;
+    margin: 0.1rem 0.1rem 0.1rem 0.1rem ;
+}   
+
+.main-nav-app-logo {
+    font-family: 'Cyberspace', 'Orbitron', 'monospace';
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: hsl(138, 100%, 50%);
+    text-shadow: 0 0 4px #00ffe7, 0 0 8px #222;
+    margin-right: auto;
+    cursor: pointer;
+}
+.main-nav-app-logo.is-phone {
+    font-size: 0.8rem;
+}  
+
+.main-nav-menu-container {
+    display: absolute;
+    width: 99%;
+    margin-left: 2vw;
+    padding: 0.9vh 0vh 0vh 0;
+
+}
+.main-nav-menu-container.is-phone {
+    gap: 0.5rem;
+    padding: 0vh 0vh 0vh 0;
+}
+.main-nav-menu-separator {
+    margin: 0 0.1rem;
+    color: lightgray;      
+}
+.main-nav-menu-item {
+    text-decoration: none;
+    color: lightseagreen;
+    cursor: pointer;
+}
